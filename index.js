@@ -33,12 +33,13 @@ app.use(express.json()) //т.к. по умолчанию Express не может
 //путь к нашей папке и поскольку index.js лежит в корневой то можем просто написать static. Кстати, когда там появятся файлы то
 //мы можем к ним обратиться набрав в строке название сервера и через слеш сам файл т.е. например: localhost:5000/c25f714c-e3f8-4ef6-b636-641ef8716098.jpg
 // app.use(express.static("static"))
-app.use(express.static(path.resolve(__dirname, "static")))
+app.use(express.static(path.resolve(req.filePath, "static")))
 
 
 app.get("/", function(req,res){ //просто сделал главную страницу
     console.log("Hey hey hey")
     res.send("<h1>Главная страница</h1>")
+
 })
 
 app.use("/api/auth", authRouter) //тут первым параметром указываем url по которому authRouter будет обрабатываться, а вторым передаем непосредственно сам authRouter

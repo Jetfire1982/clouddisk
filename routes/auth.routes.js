@@ -2,7 +2,9 @@
 const Router = require("express");
 const User = require("../models/User"); //импортируем модель пользователя
 const bcrypt = require("bcrypt"); //модуль безопасности для хеширования паролей
-const { check, validationResult } = require("express-validator"); //модуль для валидации данных
+const { check, validationResult } = require("express-validator"); //модуль для валидации данных т.к. на сервер могут отправить
+                                                                  //пустой пароль или не валидный email и вот модуль expres-validator 
+                                                                  //помогает провалидировать данные
 const config=require("config"); //этот модуль позволит нам в json файле создавать какие то настройки а затем получать их где надо, например мы получили оттуда номер порта
 const jwt=require("jsonwebtoken");
 const authMiddleware=require("../middleware/auth.middleware");
@@ -45,7 +47,7 @@ router.post('/registration',
             /*ВАЖНО! Мы не можем сохранять пароль в исходном виде в БД - для этого нам необходимо его захешировать в целях
             безопасности для этого устанавливаем модуль bcrypt. Метод hash вторым параметром принимает степень хеширования, чем
             она выше тем дольше будет хешироваться пароль*/
-            const hashPassword = await bcrypt.hash(password, 8)  //ф-ия hash асинхронная а посему добавляем async await
+            const hashPassword = await bcrypt.hash(password, 8)  //ф-ия hash асинхронная а посему добавляем async await, 8 - это мы указали степень хеширования пароля, чем выше тем дольше может быть процесс хеширования и соответственно дехеширования
             const user = new User({ email, password: hashPassword }) //т.е. мы добавили пользователю захешированный пароль
             await user.save(); //ну и теперь сохраняем пользователя в БД и это тоже асинхронная операция а посему добавляем await
             //после того как пользователь был сохранен в БД создаем для него отдельную папку название которой будет айдишник пользователя:

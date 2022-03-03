@@ -1,6 +1,6 @@
 const {Schema, model, ObjectId}=require("mongoose");
 
-
+//mongoose уже по умолчанию создает айдишники, а посему начинаем сразу с email:
 const User=new Schema({
     email:{type:String, required:true, unique:true},  //т.е. данное поле обязательно и должно быть уникальным
     password:{type:String, required:true},

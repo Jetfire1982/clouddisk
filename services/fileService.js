@@ -63,4 +63,4 @@ class FileService{
 
 }
 
-module.exports=new FileService();
+module.exports=new FileService(); //т.е. мы экспортировали модель этого класса

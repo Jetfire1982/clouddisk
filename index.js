@@ -41,6 +41,7 @@ app.get("/", function(req,res){ //просто сделал главную ст�
     console.log("Hey hey hey")
     // res.send("<h1>Главная страница</h1>")
   res.send(`${path.resolve(__dirname, 'static')}`)
+  res.send(`${express.static("static")}`)
 
 })
 

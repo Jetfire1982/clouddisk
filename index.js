@@ -17,12 +17,18 @@ const corsMiddleware=require("./middleware/cors.middleware")
 
 //экспортируем миддлвэейр который мы сделали перед деплоем:
 const filePathMiddleware=require('./middleware/filepath.middleware')
+
+//экспортируем и вот этот миддлвэейр из которого сделаем пусть к папке со статикой
+const filePathStaticMiddleware=require('./middleware/filepathStatic.middleware')
+
 //импортируем стандартный модуль NODE.JS который называется path и который правильно преобразовывает путь для всех
 //операционных систем: 
 const path=require('path')
 //и теперь в миддлэевейре filePathMiddleware применем этот модуль и его метод resolve в который 
 //передаем __dirname (путь к текущей директории) и вторым параметром название папки files: 
 app.use(filePathMiddleware(path.resolve(__dirname, 'files')))
+
+app.use(filePathStaticMiddleware(path.resolve(__dirname, 'static')))
 
 app.use(fileUpload({}))
 app.use(corsMiddleware) //функционал для обхода cors

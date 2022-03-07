@@ -289,7 +289,9 @@ class FileController {
             //в таком виде: "9b1deb4d-3b7d-4bad-9bdd-2bod7b3dcb6d" ну и далее мы к этой строке добавим ".jpg"
             const avatarName = Uuid.v4() + ".jpg"
             //далее у файла вызываем ф-ию mv (от слова move) и параметром передаем путь по которому мы этот файл будем перемещать
-            file.mv(config.get('staticPath') + "\\" + avatarName)
+            // file.mv(config.get('staticPath') + "\\" + avatarName)
+            
+            file.mv(req.filePathStatic + "\\" + avatarName)
             //и в моделе пользователя мы создавали поле avatar и в него мы как раз добавим название аватарки которое сгенерировали:
             user.avatar = avatarName
             //теперь пользователя сохраняем:

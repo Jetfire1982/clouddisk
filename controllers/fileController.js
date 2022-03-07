@@ -292,9 +292,9 @@ class FileController {
             // file.mv(config.get('staticPath') + "\\" + avatarName)
             
             //ниже мы получаем путь к статичной папке который мы задаем в filepathStatic.middleware.js
-            file.mv(req.filePathStatic + "//" + avatarName)
+            file.mv(req.filePathStatic + "/" + avatarName)
            
-            console.log("TEST=",req.filePathStatic + "//" + avatarName)
+            console.log("TEST=",req.filePathStatic + "/" + avatarName)
             //и в моделе пользователя мы создавали поле avatar и в него мы как раз добавим название аватарки которое сгенерировали:
             user.avatar = avatarName
             //теперь пользователя сохраняем:
@@ -317,7 +317,8 @@ class FileController {
             const user = await User.findById(req.user.id) //напомню что этот id мы получаем из токена 
             //нам нужно удалить физический файл с компьютера и для этого мы обращаемся к модулю fs и вызываем 
             //у него ф-ию unlinkSync в которую передаем путь к файлу:
-            fs.unlinkSync(config.get('staticPath')+'\\'+user.avatar)
+            fs.unlinkSync(req.filePathStatic + "/" + user.avatar)
+           
             //теперь мы присваиваем полю avatar значение null:
             user.avatar=null
             //и в ответ на клиент будем отправлять не сообщение а прямо исправленного пользователя:

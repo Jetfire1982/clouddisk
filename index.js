@@ -28,6 +28,7 @@ const path=require('path')
 //передаем __dirname (путь к текущей директории) и вторым параметром название папки files: 
 app.use(filePathMiddleware(path.resolve(__dirname, 'files')))
 
+//передаем для записи в запрос путь к папке со статикоей и потом мы сможем к ней обращаться req.filePathStatic
 app.use(filePathStaticMiddleware(path.resolve(__dirname, 'static')))
 
 app.use(fileUpload({}))

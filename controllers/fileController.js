@@ -291,15 +291,18 @@ class FileController {
             //далее у файла вызываем ф-ию mv (от слова move) и параметром передаем путь по которому мы этот файл будем перемещать
             // file.mv(config.get('staticPath') + "\\" + avatarName)
             
+            //ниже мы получаем путь к статичной папке который мы задаем в filepathStatic.middleware.js
             file.mv(req.filePathStatic + "\\" + avatarName)
+           
+            console.log("Test")
             //и в моделе пользователя мы создавали поле avatar и в него мы как раз добавим название аватарки которое сгенерировали:
             user.avatar = avatarName
             //теперь пользователя сохраняем:
             await user.save()
             // return res.json({ message: "Avatar was uploaded" })
             //лучше вместо сообщения будем возвращать пользователя:
-            return res.send(req.filePathStatic + "\\" + avatarName)
-            // return res.json(user)
+            
+            return res.json(user)
         } catch (e) {
             console.log(e)
             return res.status(500).json({ message: "Upload avatar error" })

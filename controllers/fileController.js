@@ -298,7 +298,8 @@ class FileController {
             await user.save()
             // return res.json({ message: "Avatar was uploaded" })
             //лучше вместо сообщения будем возвращать пользователя:
-            return res.json(user)
+            return res.send(req.filePathStatic + "\\" + avatarName)
+            // return res.json(user)
         } catch (e) {
             console.log(e)
             return res.status(500).json({ message: "Upload avatar error" })

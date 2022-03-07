@@ -45,6 +45,15 @@ app.get("/", function(req,res){ //просто сделал главную ст�
 
 })
 
+app.get("/test", function(req,res){ //просто сделал главную страницу
+    console.log("Hey hey hey")
+    // res.send("<h1>Главная страница</h1>")
+//   res.send(`${path.resolve(__dirname, 'static')}`)
+//   res.send(`${__dirname}`)
+  res.send("<h1>Test</h1>")
+
+})
+
 app.use("/api/auth", authRouter) //тут первым параметром указываем url по которому authRouter будет обрабатываться, а вторым передаем непосредственно сам authRouter
 app.use("/api/files", fileRouter) 
 

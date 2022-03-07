@@ -294,7 +294,7 @@ class FileController {
             //ниже мы получаем путь к статичной папке который мы задаем в filepathStatic.middleware.js
             file.mv(req.filePathStatic + "\\" + avatarName)
            
-            console.log("Test")
+            console.log("TEST=",req.filePathStatic + "\\" + avatarName)
             //и в моделе пользователя мы создавали поле avatar и в него мы как раз добавим название аватарки которое сгенерировали:
             user.avatar = avatarName
             //теперь пользователя сохраняем:

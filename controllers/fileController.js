@@ -5,6 +5,7 @@ const File = require('../models/File') //экспортируем сущност
 const config = require('config')
 const fs = require('fs')
 const Uuid = require('uuid');
+const path = require('path');
 
 
 
@@ -278,6 +279,11 @@ class FileController {
     async uploadAvatar(req, res) {
         try {
             console.log("I am here")
+            fs.readdir(path.resolve(__dirname, '..', 'static'), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("FILES from upload = ",files);
+            })
             //в первую очередь мы должны получить файл из запроса и это и будет собственно аватарка
             const file = req.files.file
             //теперь нам нужно получить самого пользователя из базы данных:

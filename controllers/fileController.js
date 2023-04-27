@@ -202,13 +202,16 @@ class FileController {
             // const path=config.get('filePath')+'\\'+req.user.id+'\\'+file.path
             //для получения пути мы написали ф-ию getPath
             const path = fileService.getPath(req, file)
+            console.log("path download = ",path)
             //теперь проверим что если файл по данному пути существует то мы должны отправить его обратно на клиент, есть множество способов
             //реализовать такой функционал, но восопльзуемся функцией download куда мы первым параметром передаем путь к файлу, а вторым
             //имя файла
             if (fs.existsSync(path)) {
+                console.log("Exist file.name = ", file.name)
                 return res.download(path, file.name)
             }
 
+            console.log("No exist")
 
             //и в случае если файл всеже был не найден отправим какое нибудь сообщение на клиент:
             return res.status(400).json({ message: "Download error" })

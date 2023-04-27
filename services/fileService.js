@@ -58,6 +58,8 @@ class FileService{
     //ф-ия получения пути, мы будем получать из req ведь мы в filepath.middleware туда добавили свойство filePath 
     getPath(req, file){
         //file.user - это id пользователя
+        console.log("req.filePath = ",req.filePath)
+        console.log("file.path = ",file.path)
         return req.filePath+'\\'+file.user+'\\'+file.path
     }
 

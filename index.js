@@ -34,6 +34,7 @@ const path=require('path')
 //и теперь в миддлэевейре filePathMiddleware применем этот модуль и его метод resolve в который 
 //передаем __dirname (путь к текущей директории) и вторым параметром название папки files: 
 app.use(filePathMiddleware(path.resolve(__dirname, 'files')))
+console.log("PATH from INDEX = ", path.resolve(__dirname, 'files')) 
 
 fs.readdir(path.resolve(__dirname, 'static'), (err, files)=>{
     if (err) throw err;

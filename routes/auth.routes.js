@@ -81,11 +81,11 @@ router.post('/login',
                 console.log("STATIC INSIDE from login = ",files);
             })
 
-            fs.readdir(path.resolve(__dirname, '..', 'files', '643fb841262a202b048e74e0'), (err, files)=>{
-                if (err) throw err;
+            // fs.readdir(path.resolve(__dirname, '..', 'files', '643fb841262a202b048e74e0'), (err, files)=>{
+            //     if (err) throw err;
             
-                console.log("FILES/643fb841262a202b048e74e0 inside from login = ",files);
-            })
+            //     console.log("FILES/643fb841262a202b048e74e0 inside from login = ",files);
+            // })
 
             fs.readdir(path.resolve(__dirname, '..'), (err, files)=>{
                 if (err) throw err;

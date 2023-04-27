@@ -40,12 +40,15 @@ router.post('/registration',
                 return res.status(400).json({ message: "Uncorrect request", errors })
             }
 
+           
 
             const { email, password } = req.body //получаем email и пароль из тела запроса 
             const candidate = await User.findOne({ email })//теперь необходимо проверить существует ли пользователь с таким email в базе и не забываем что все ф-ии из БД асинхронные
+            
             if (candidate) {
                 return res.status(400).json({ message: `User with email ${email} already exists` })
             }
+ 
             //ну а если условие выше не сработало то мы можем создавать нового пользователя
             /*ВАЖНО! Мы не можем сохранять пароль в исходном виде в БД - для этого нам необходимо его захешировать в целях
             безопасности для этого устанавливаем модуль bcrypt. Метод hash вторым параметром принимает степень хеширования, чем
@@ -54,6 +57,7 @@ router.post('/registration',
             const user = new User({ email, password: hashPassword }) //т.е. мы добавили пользователю захешированный пароль
             await user.save(); //ну и теперь сохраняем пользователя в БД и это тоже асинхронная операция а посему добавляем await
             //после того как пользователь был сохранен в БД создаем для него отдельную папку название которой будет айдишник пользователя:
+            
             await fileService.createDir(req, new File({user:user.id, name:''})) //тут мы просто создаем папку и после создания идем дальше
             
 

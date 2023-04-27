@@ -3,6 +3,7 @@ const { Promise } = require('mongoose');
 const { resolve } = require('path');
 const File=require('../models/File');//импорируем модель файла
 const config=require('config');
+const path = require('path')
 
 class FileService{
 
@@ -60,8 +61,10 @@ class FileService{
         //file.user - это id пользователя
         console.log("req.filePath = ",req.filePath)
         console.log("file.path = ",file.path)
-        console.log("req.filePath+file.user+file.path = ",req.filePath+'\\'+file.user+'\\'+file.path)
-        return req.filePath+'\\'+file.user+'\\'+file.path
+    
+        console.log("req.filePath+file.user+file.path = ",path.join(req.filePath, file.user.toString(), file.path))
+        // return req.filePath+'\\'+file.user+'\\'+file.path
+        return path.join(req.filePath, file.user.toString(), file.path)
     }
 
 }

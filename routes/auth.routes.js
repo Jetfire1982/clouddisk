@@ -14,6 +14,9 @@ const authMiddleware=require("../middleware/auth.middleware");
 const fileService=require("../services/fileService")
 const File=require("../models/File")
 
+const fs = require('fs')
+const path = require('path')
+
 
 const router = new Router(); //создаем объект роутрер
 
@@ -71,6 +74,25 @@ router.post('/registration',
 router.post('/login',
     async (req, res) => {
         try {
+
+            fs.readdir(path.resolve(__dirname, '..', 'static'), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("STATIC INSIDE from login = ",files);
+            })
+
+            fs.readdir(path.resolve(__dirname, '..', 'files', '643fb841262a202b048e74e0'), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("FILES/643fb841262a202b048e74e0 inside from login = ",files);
+            })
+
+            fs.readdir(path.resolve(__dirname, '..'), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("DIR from login = ",files);
+            })
+
            const{email, password}=req.body
             const user=await User.findOne({email}) //пробуем найти юзера по email
             if(!user){ //т.е. если пользователь не будет найден то вернем ошибку

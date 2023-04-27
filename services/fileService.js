@@ -60,6 +60,7 @@ class FileService{
         //file.user - это id пользователя
         console.log("req.filePath = ",req.filePath)
         console.log("file.path = ",file.path)
+        console.log("req.filePath+file.user+file.path = ",req.filePath+'\\'+file.user+'\\'+file.path)
         return req.filePath+'\\'+file.user+'\\'+file.path
     }
 

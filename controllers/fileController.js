@@ -113,11 +113,12 @@ class FileController {
             //теперь найдем самого пользователя - он нужен нам для того чтобы проверить есть ли у него свободное место на диске или нет
             const user = await User.findOne({ _id: req.user.id })
 
+           console.log("parent = ",parent)
+
             //теперь ниже в условии проверим - если занятое на диске место + размер файла больше чем весь размер диска то вернем на
             //клиент сообщение о том что на диске нет свободного места:
-
-
-
+           
+            
             if (user.usedSpace + file.size > user.diskSpace) {
                 return res.status(400).json({ message: "There is no space on the disk" })
             }
@@ -131,10 +132,6 @@ class FileController {
             } else {
                 path = `${req.filePath}\\${user._id}\\${file.name}`  //т.е. если parent не указан то закидываем в корень т.е. в папку с id пользователя
             }
-
-            console.log("path=", path)
-            console.log("parent=", parent)
-            console.log("file=", file)
 
             //ниже проверим существует ли файл с таким названием по такому пути:
             if (fs.existsSync(path)) {
@@ -227,7 +224,7 @@ class FileController {
             //получаем файл из базы данных по id который мы получаем из строки запроса и пользователя, которого
             //мы получаем как и прежде из токена
             const file = await File.findOne({ _id: req.query.id, user: req.user.id })
-            console.log("file=", file)
+           
             //если файл не был найден то оповестим об этом клиента:
             if (!file) {
                 return res.status(400).json({ message: 'file not found' })
@@ -280,6 +277,7 @@ class FileController {
     //ниже реализуем ф-ию для загрузки аватара и как обычно это асинхронная ф-ию которая параметрами принимает запрос и ответ
     async uploadAvatar(req, res) {
         try {
+            console.log("I am here")
             //в первую очередь мы должны получить файл из запроса и это и будет собственно аватарка
             const file = req.files.file
             //теперь нам нужно получить самого пользователя из базы данных:
@@ -297,6 +295,7 @@ class FileController {
             console.log("TEST=",req.filePathStatic + "/" + avatarName)
             //и в моделе пользователя мы создавали поле avatar и в него мы как раз добавим название аватарки которое сгенерировали:
             user.avatar = avatarName
+            console.log("avatarName = ",avatarName)
             //теперь пользователя сохраняем:
             await user.save()
             // return res.json({ message: "Avatar was uploaded" })
@@ -321,6 +320,8 @@ class FileController {
            
             //теперь мы присваиваем полю avatar значение null:
             user.avatar=null
+            //теперь пользователя сохраняем:
+            await user.save()
             //и в ответ на клиент будем отправлять не сообщение а прямо исправленного пользователя:
             return res.json(user)
 

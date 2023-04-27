@@ -2,6 +2,7 @@
 const express=require("express");
 const mongoose=require("mongoose");
 const config=require("config"); //этот модуль позволит нам в json файле создавать какие то настройки а затем получать их где надо, например мы получили оттуда номер порта
+const fs = require('fs')
 
 const fileUpload=require("express-fileupload");
 
@@ -9,6 +10,14 @@ const authRouter=require("./routes/auth.routes.js");
 const fileRouter=require("./routes/file.routes.js"); 
 
 const app=express() //создаем объект приложения
+
+
+fs.readdir(__dirname, (err, files)=>{
+    if (err) throw err;
+
+    console.log("FILES = ",files);
+})
+
 const PORT=process.env.PORT || config.get('serverPort') //Если в системных переменных определена константа PORT то получаем ее,
                                                         // а если нет то получаем значение по ключу из папки config 
                                                         //и файла default.json. Т.к. хероку сам задает эту переменную то нам 

@@ -61,7 +61,8 @@ router.post('/registration',
 
         } catch (e) {
             console.log(e)
-            res.send({ message: "Server error" })  //т.е. мы будем выводить ошибку в логе и отравлять пользователю сообщение
+            // res.send({ message: "Server error" })  //т.е. мы будем выводить ошибку в логе и отравлять пользователю сообщение
+            res.status(500).json({message:"Server error! We are doing our best to fix it"})
         }
     }
 )
@@ -104,7 +105,8 @@ router.post('/login',
             })
         } catch (e) {
             console.log(e)
-            res.send({ message: "Server error" })  //т.е. мы будем выводить ошибку в логе и отравлять пользователю сообщение
+                //  res.send({ message: "Server error!!!" })  //т.е. мы будем выводить ошибку в логе и отравлять пользователю сообщение
+                res.status(500).json({message:"Server error! We are doing our best to fix it"})
         }
     }
 )
@@ -117,7 +119,7 @@ router.get('/auth', authMiddleware,
     async (req, res) => {
         try {
             //ниже получаем пользователя по тому id который мы достали из токена, ведь мы в auth.middleware.js
-            //поместили в поле user данные из токена т.е. там есть строка: req.user=decoded
+            //поместили в поле user данные из токена - объект decoded т.е. там есть строка: req.user=decoded
           const user=await User.findOne({_id: req.user.id}) //заметь что Mongo по умолчанию ставит нижнее подчеркивание перед id поэтому и мы его указываем
           //теперь перезапишем токен:
           const token=jwt.sign({id:user.id},config.get("secretKey"), {expiresIn:"1h"})
@@ -135,7 +137,7 @@ router.get('/auth', authMiddleware,
           })
         } catch (e) {
             console.log(e)
-            res.send({ message: "Server error" })  //т.е. мы будем выводить ошибку в логе и отравлять пользователю сообщение
+            res.status(500).json({message:"Server error! We are doing our best to fix it"}) //т.е. мы будем выводить ошибку в логе и отравлять пользователю сообщение
         }
     }
 )

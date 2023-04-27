@@ -17,11 +17,11 @@ module.exports=(req,res,next)=>{
         //!!!Ниже мы получаем token из заголовка запроса authorization и так как токен состоит из двух частей - это
         //слово beerer и непосредственно сам токен то мы разделим его ф-ией split и получим второй элемент массива т.е.
         //непосредственно сам токен
-        console.log("q=",req.headers)
+       
         const token=req.headers.authorization.split(' ')[1]
         if(!token){
             //т.е. если токена у нас нет то мы вернем соответствующее сообщение
-            return res.status(401).json({message: "Auth error"})
+            return res.status(401).json({message: "Authorisation Error"})
         } 
 
         //ниже мы раскодируем токен и получаем из него все данные, которые мы в него вшивали. Первым параметром
@@ -33,7 +33,7 @@ module.exports=(req,res,next)=>{
         next() //чтобы вызвать по цепочке следующий middleware
     }catch(e){
         //если была поймана какая-то ошибка вернем какое нибудь сообщение
-        return res.status(401).json({message:"Auth error"})
+        return res.status(401).json({message:"Authorisation Error"})
     }
 }
 

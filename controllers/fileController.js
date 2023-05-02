@@ -159,7 +159,7 @@ class FileController {
             file.mv(path)
             console.log("2!")
 
-            fs.readdir(p.join(req.filePath, user._id.toString()), (err, files)=>{
+            fs.readdir(p.join(req.filePath, user._id.toString(), parent.path), (err, files)=>{
                 if (err) throw err;
             
                 console.log("FILES from user when upload = ",files);
@@ -180,7 +180,7 @@ class FileController {
             //мы оставим просто название файла
             if (parent) {
                 // filePath = parent.path + "\\" + file.name
-                p.join(parent.path, file.name)
+                filePath=p.join(parent.path, file.name)
             }
 
 

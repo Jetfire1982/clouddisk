@@ -135,8 +135,8 @@ class FileController {
                 // path = `${req.filePath}\\${user._id}\\${file.name}`  //т.е. если parent не указан то закидываем в корень т.е. в папку с id пользователя
               
                 // return req.filePath+'\\'+file.user+'\\'+file.path
-                console.log("UPLOAD to path = ",p.join(req.filePath, user._id, file.name))
-                path = p.join(req.filePath, user._id, file.name)
+                console.log("UPLOAD to path = ",p.join(req.filePath, user._id.toString(), file.name))
+                path = p.join(req.filePath, user._id.toString(), file.name)
             }
 
             fs.readdir(path, (err, files)=>{

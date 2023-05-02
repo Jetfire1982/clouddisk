@@ -131,6 +131,10 @@ class FileController {
             let path;
             if (parent) {
                 path = `${req.filePath}\\${user._id}\\${parent.path}\\${file.name}`
+
+                path = p.join(req.filePath, user._id.toString(), parent.path, file.name)
+
+                console.log("UPLOAD to path with parent = ",p.join(req.filePath, user._id.toString(), parent.path, file.name))
             } else {
                 // path = `${req.filePath}\\${user._id}\\${file.name}`  //т.е. если parent не указан то закидываем в корень т.е. в папку с id пользователя
               
@@ -139,11 +143,7 @@ class FileController {
                 path = p.join(req.filePath, user._id.toString(), file.name)
             }
 
-            fs.readdir(p.join(req.filePath, user._id.toString()), (err, files)=>{
-                if (err) throw err;
-            
-                console.log("FILES from user when upload = ",files);
-            })
+           
 
             //ниже проверим существует ли файл с таким названием по такому пути:
             if (fs.existsSync(path)) {
@@ -154,6 +154,13 @@ class FileController {
             //ниже с помощью ф-ии mv переместим наш файл по ранее созданному пути:
             file.mv(path)
             console.log("2!")
+
+            fs.readdir(p.join(req.filePath, user._id.toString()), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("FILES from user when upload = ",files);
+            })
+
             //теперь получим тип файла, а именно его расширение. И поскольку нам нужно слово после последней точки, а точек в названии может
             //быть несколько то разделим название файла по точкам с помощъю ф-ии split и так как результатом будет массив то заберем последний
             //элемент с помощью ф-ии pop:
@@ -168,7 +175,8 @@ class FileController {
             //ниже для пути файла, опрделенного выше, добавим родительский путь в случае если есть родитель, а если же его нет то
             //мы оставим просто название файла
             if (parent) {
-                filePath = parent.path + "\\" + file.name
+                // filePath = parent.path + "\\" + file.name
+                p.join(parent.path, file.name)
             }
 
 

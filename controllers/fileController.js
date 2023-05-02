@@ -5,6 +5,7 @@ const File = require('../models/File') //экспортируем сущност
 const config = require('config')
 const fs = require('fs')
 const Uuid = require('uuid');
+const p  = require('path')
 
 
 
@@ -212,7 +213,7 @@ class FileController {
             }
 
             
-            fs.readdir(path.join(req.filePath, file.user.toString()), (err, files)=>{
+            fs.readdir(p.join(req.filePath, file.user.toString()), (err, files)=>{
                 if (err) throw err;
             
                 console.log("FILES from user = ",files);

@@ -132,8 +132,18 @@ class FileController {
             if (parent) {
                 path = `${req.filePath}\\${user._id}\\${parent.path}\\${file.name}`
             } else {
-                path = `${req.filePath}\\${user._id}\\${file.name}`  //т.е. если parent не указан то закидываем в корень т.е. в папку с id пользователя
+                // path = `${req.filePath}\\${user._id}\\${file.name}`  //т.е. если parent не указан то закидываем в корень т.е. в папку с id пользователя
+              
+                // return req.filePath+'\\'+file.user+'\\'+file.path
+                console.log("UPLOAD to path = ",p.join(req.filePath, user._id, file.name))
+                path = p.join(req.filePath, user._id, file.name)
             }
+
+            fs.readdir(path, (err, files)=>{
+                if (err) throw err;
+            
+                console.log("FILES from user when upload = ",files);
+            })
 
             //ниже проверим существует ли файл с таким названием по такому пути:
             if (fs.existsSync(path)) {

@@ -139,7 +139,7 @@ class FileController {
                 path = p.join(req.filePath, user._id.toString(), file.name)
             }
 
-            fs.readdir(path, (err, files)=>{
+            fs.readdir(p.join(req.filePath, user._id.toString()), (err, files)=>{
                 if (err) throw err;
             
                 console.log("FILES from user when upload = ",files);

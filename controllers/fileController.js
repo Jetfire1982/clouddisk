@@ -36,7 +36,11 @@ class FileController {
             } else {
                 //если же родительский файл был все же найден то тогда сперва мы добавляем родительский путь и к нему приплюсовываем 
                 //имя файла:
-                file.path = `${parentFile.path}\\${file.name}`
+                
+                // file.path = `${parentFile.path}\\${file.name}`
+
+                file.path = p.join(parentFile.path, file.name)
+
                 await fileService.createDir(req, file) //создаем директорию
                 //теперь в массив родительского файла childs пушим id только что созданного нового файла т.к. он будет явяться по
                 //отношению к родительскому файлу дочерним:

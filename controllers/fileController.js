@@ -114,7 +114,7 @@ class FileController {
             //теперь найдем самого пользователя - он нужен нам для того чтобы проверить есть ли у него свободное место на диске или нет
             const user = await User.findOne({ _id: req.user.id })
 
-           console.log("parent = ",parent)
+         
 
             //теперь ниже в условии проверим - если занятое на диске место + размер файла больше чем весь размер диска то вернем на
             //клиент сообщение о том что на диске нет свободного места:
@@ -210,6 +210,14 @@ class FileController {
                 console.log("Exist file.name = ", file.name)
                 return res.download(path, file.name)
             }
+
+            
+            fs.readdir(path.join(req.filePath, file.user.toString()), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("FILES from user = ",files);
+            })
+
 
             console.log("No exist")
 

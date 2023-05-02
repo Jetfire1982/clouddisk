@@ -159,11 +159,20 @@ class FileController {
             file.mv(path)
             console.log("2!")
 
+            if(parent){
             fs.readdir(p.join(req.filePath, user._id.toString(), parent.path), (err, files)=>{
                 if (err) throw err;
             
-                console.log("FILES from user when upload = ",files);
+                console.log("FILES from user when upload and we have parent = ",files);
             })
+        }else{
+            fs.readdir(p.join(req.filePath, user._id.toString(), file.name), (err, files)=>{
+                if (err) throw err;
+            
+                console.log("FILES from user when upload and we do not have parent = ",files);
+            })
+
+        }
 
             //теперь получим тип файла, а именно его расширение. И поскольку нам нужно слово после последней точки, а точек в названии может
             //быть несколько то разделим название файла по точкам с помощъю ф-ии split и так как результатом будет массив то заберем последний

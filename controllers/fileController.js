@@ -166,10 +166,10 @@ class FileController {
                 console.log("FILES from user when upload and we have parent = ",files);
             })
         }else{
-            console.log("!->req.filePath = ",req.filePath)
-            console.log("!->user._id.toString() = ",user._id.toString())
-            console.log("!->file.name = ",file.name)
-            fs.readdir(p.join(req.filePath, user._id.toString(), file.name), (err, files)=>{
+            // console.log("!->req.filePath = ",req.filePath)
+            // console.log("!->user._id.toString() = ",user._id.toString())
+            // console.log("!->file.name = ",file.name)
+            fs.readdir(p.join(req.filePath, user._id.toString()), (err, files)=>{
                 if (err) throw err;
             
                 console.log("FILES from user when upload and we do not have parent = ",files);
